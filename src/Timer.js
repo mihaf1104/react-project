@@ -1,5 +1,5 @@
 import React  from "react";
-import ReactDOM  from "react-dom";
+//import ReactDOM  from "react-dom";
 import './style.css'
 
 var interval;
@@ -7,19 +7,19 @@ class Timer extends React.Component{
     constructor(){
       super();
       this.state={
-        time :new Date().toLocaleTimeString()
+        time :new Date().toLocaleTimeString(),
+        number:5
       }
     }
 
     componentDidMount()
-    {
-      console.log("didmount");
+    { 
      interval=setInterval(() => {
-        this.setState({time:new Date().toLocaleTimeString()})
+        this.setState({number:this.state.number-1})
       }, 1000);
     }
     componentDidUpdate(){
-     if (this.state.time==="2:26:00 AM"){
+     if (this.state.number===0){
      clearInterval(interval)}
     }
 
@@ -30,10 +30,14 @@ class Timer extends React.Component{
     render(){
       console.log("render");
       return(
+        <>
         <h2 className='timer'>
              
              it is  { new Date().toLocaleTimeString()}
+            
           </h2>
+          <button onClick={this.props.handleSetTitle}>change</button>
+          </>
       )
     }
   }
