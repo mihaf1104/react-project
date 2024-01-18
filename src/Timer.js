@@ -7,45 +7,53 @@ class Timer extends React.Component{
     constructor(){
       super();
       this.state={
-        time :5 
+        hour :0,
+        minute:0,
+        second:0,
+        isStart:false 
       }
     }
     startInterval=()=>{
+      if (this.state.isStart===false)
+      {
+        this.setState({isStart:true})
       interval=setInterval(() => {
-        this.setState(
+       this.setState({second:this.state.second+1}) 
+       if (this.state.second===60)
           {
-            time:(this.state.time-1)<0 ?0:this.state.time-1
-          }
-        )
+            this.setState({
+              second:0,
+              minute:this.state.minute+1
+              }) 
+          }    
+          if (this.state.minute===60)
+          {
+            this.setState({
+              minute:0,
+              hour:this.state.hour+1
+              }) 
+          }    
       }, 1000);
+    }
     }
 
     resetInterval=()=>{
-      this.setState({time:5})
+      this.setState({hour:0,minute:0,second:0})
+      this.stopInterval()
     }
     stopInterval=()=>{
+      this.setState({isStart:false})
       clearInterval(interval)
     }
-    componentDidMount()//شروع کامپوننت
-    { 
-     this.startInterval();
-    }
-    componentDidUpdate()//وقتی مقدار استیت تغییر میکند
-    {
-     if (this.state.number===0){
-            this.clearInterval()}
-    }
 
-    componentWillUnmount()
-    {
-
-    }
     render(){
-      
+      let h=this.state.hour.toString().padStart(2,'0')
+      let m=this.state.minute.toString().padStart(2,'0')
+      let s=this.state.second.toString().padStart(2,'0')
       return(
          <>
          <h2 className='timer'>
-             {this.state.time}
+               {`${h} : ${m} : ${s}`}
           </h2>
           {/* <button onClick={this.props.handleSetTitle}>change</button>*/}
 
