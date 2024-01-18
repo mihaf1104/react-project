@@ -61,6 +61,7 @@ class Timer extends React.Component{
                <spam className="action_button start_burtton" onClick={this.startInterval} >Start</spam>
                <spam className="action_button stop_burtton" onClick={this.stopInterval}>Stop</spam>
                <spam className="action_button reset_burtton" onClick={this.resetInterval}>Reset</spam>
+               <spam className="action_button reset_burtton" onClick={this.props.handleSetTitle}>Title</spam>
            </div>
           </>
       )
